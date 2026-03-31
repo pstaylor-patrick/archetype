@@ -1,0 +1,16 @@
+Design an IP67-rated enclosure for an outdoor IoT sensor node.
+
+Requirements:
+- Must house a PCB measuring 80mm x 60mm x 15mm
+- Battery compartment for 2x 18650 lithium cells
+- External antenna connector (SMA female bulkhead)
+- Ambient temperature range: -20°C to +60°C
+- Must survive a 1.5m drop onto concrete
+- UV resistant (direct sunlight exposure, 10 year life)
+- Must allow field battery replacement without tools (quarter-turn latch)
+- IP67 ingress protection (temporary submersion to 1m)
+- Target weight: under 250 grams (excluding battery and PCB)
+- Production volume: 10,000 units/year
+- Target cost: under $8 per unit at volume
+- Must be mountable via DIN rail clip or zip-tie slots
+- Color: neutral gray (RAL 7035 or similar)
