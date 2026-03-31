@@ -53,3 +53,7 @@ warn_unused_configs = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+addopts = "-m 'not integration'"
+markers = [
+    "integration: requires ANTHROPIC_API_KEY and makes real API calls (use -m integration to run)",
+]
