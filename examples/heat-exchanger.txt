@@ -1,0 +1,15 @@
+Design a compact heat exchanger for cooling a 500W industrial laser module.
+
+Requirements:
+- Thermal load: 500W continuous, 750W peak (30 second bursts)
+- Coolant: distilled water, flow rate 2-4 L/min available
+- Inlet temperature: 20°C
+- Maximum junction temperature: 65°C (laser diode limit)
+- Envelope constraint: must fit within 150mm x 100mm x 50mm
+- Pressure drop: less than 30 kPa at max flow
+- Must interface with standard 1/4" push-to-connect fittings
+- Material compatibility: no copper (coolant chemistry restriction)
+- Target weight: under 1.2 kg
+- Production volume: 2000 units/year
+- Target cost: under $80 per unit at volume
+- Must survive 10,000 thermal cycles without fatigue failure

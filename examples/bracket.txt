@@ -1,0 +1,13 @@
+Design a mounting bracket for a satellite communication antenna.
+
+Requirements:
+- Must support a 15 kg antenna in a 3G vibration environment
+- Operating temperature range: -40°C to +85°C
+- Maximum allowable deflection under load: 0.5 mm
+- Must be compatible with M8 bolt mounting pattern on a flat bulkhead
+- Target weight: under 800 grams
+- Production volume: 500 units/year
+- Budget: under $45 per unit at volume
+- Material must be non-magnetic (near sensitive RF equipment)
+- Corrosion resistance required (outdoor marine environment)
+- Design life: 15 years minimum
