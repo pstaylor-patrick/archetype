@@ -10,7 +10,9 @@ from archetype.models import DesignConcept, DesignDriver, RequirementsAnalysis, 
 
 
 def pytest_configure(config: pytest.Config) -> None:
-    config.addinivalue_line("markers", "integration: requires ANTHROPIC_API_KEY and makes real API calls")
+    config.addinivalue_line(
+        "markers", "integration: requires ANTHROPIC_API_KEY and makes real API calls"
+    )
 
 
 def has_api_key() -> bool:
@@ -67,6 +69,7 @@ Design a 90-degree pipe elbow for a compressed air system.
 # Pre-built model fixtures for unit-level tests
 # ---------------------------------------------------------------------------
 
+
 @pytest.fixture
 def bracket_analysis() -> RequirementsAnalysis:
     """A realistic bracket requirements analysis for testing downstream logic."""
@@ -121,37 +124,52 @@ def bracket_concepts(bracket_analysis: RequirementsAnalysis) -> list[DesignConce
             name="304SS Sheet Metal",
             approach="Bent stainless steel sheet with welded gussets",
             scores=dict(zip(driver_names, [8.0, 9.0, 6.0, 9.0, 7.0])),
-            rationale=dict(zip(driver_names, [
-                "Strong but heavier than needed",
-                "Excellent corrosion resistance",
-                "Material cost moderate, welding adds labor",
-                "Full range no issue",
-                "Standard sheet metal fab",
-            ])),
+            rationale=dict(
+                zip(
+                    driver_names,
+                    [
+                        "Strong but heavier than needed",
+                        "Excellent corrosion resistance",
+                        "Material cost moderate, welding adds labor",
+                        "Full range no issue",
+                        "Standard sheet metal fab",
+                    ],
+                )
+            ),
         ),
         DesignConcept(
             name="Die-Cast Aluminum",
             approach="A380 aluminum die casting with powder coat finish",
             scores=dict(zip(driver_names, [7.0, 7.0, 8.0, 8.0, 9.0])),
-            rationale=dict(zip(driver_names, [
-                "Adequate but lower stiffness than steel",
-                "Good with powder coat, bare aluminum would pit",
-                "Low unit cost at volume from die casting",
-                "Aluminum handles range well",
-                "High-volume die casting is very repeatable",
-            ])),
+            rationale=dict(
+                zip(
+                    driver_names,
+                    [
+                        "Adequate but lower stiffness than steel",
+                        "Good with powder coat, bare aluminum would pit",
+                        "Low unit cost at volume from die casting",
+                        "Aluminum handles range well",
+                        "High-volume die casting is very repeatable",
+                    ],
+                )
+            ),
         ),
         DesignConcept(
             name="Glass-Filled Nylon",
             approach="Injection molded PA66-GF30 with brass inserts",
             scores=dict(zip(driver_names, [6.0, 8.0, 9.0, 6.0, 9.0])),
-            rationale=dict(zip(driver_names, [
-                "Adequate for static but flex under vibration",
-                "Inherently corrosion-proof",
-                "Very low unit cost at volume",
-                "Nylon loses strength above 40°C under load",
-                "Injection molding is ideal at 1000/year",
-            ])),
+            rationale=dict(
+                zip(
+                    driver_names,
+                    [
+                        "Adequate for static but flex under vibration",
+                        "Inherently corrosion-proof",
+                        "Very low unit cost at volume",
+                        "Nylon loses strength above 40°C under load",
+                        "Injection molding is ideal at 1000/year",
+                    ],
+                )
+            ),
         ),
     ]
 

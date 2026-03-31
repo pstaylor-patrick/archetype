@@ -20,13 +20,9 @@ class TestDesignDriver:
 
     def test_weight_must_be_in_range(self) -> None:
         with pytest.raises(ValidationError, match="greater than or equal to 0"):
-            DesignDriver(
-                name="X", description="X", unit="X", target="X", weight=-0.1
-            )
+            DesignDriver(name="X", description="X", unit="X", target="X", weight=-0.1)
         with pytest.raises(ValidationError, match="less than or equal to 1"):
-            DesignDriver(
-                name="X", description="X", unit="X", target="X", weight=1.1
-            )
+            DesignDriver(name="X", description="X", unit="X", target="X", weight=1.1)
 
     def test_boundary_weights(self) -> None:
         d0 = DesignDriver(name="X", description="X", unit="X", target="X", weight=0.0)

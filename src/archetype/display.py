@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+__all__ = ["print_analysis", "print_tradeoff_matrix"]
+
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
@@ -67,7 +69,7 @@ def print_tradeoff_matrix(
     console.print(table)
 
     console.print()
-    for concept in study.concepts:
+    for concept, _ws in scored_concepts:
         concept_text = Text()
         concept_text.append(f"  {concept.name}: ", style="bold")
         concept_text.append(concept.approach)

@@ -23,7 +23,6 @@ from .conftest import (
     skip_without_api_key,
 )
 
-
 # ---------------------------------------------------------------------------
 # Requirements Analysis — does the LLM correctly decompose engineering specs?
 # ---------------------------------------------------------------------------
@@ -71,7 +70,9 @@ class TestRequirementsDecomposition:
     def test_all_weights_are_positive(self) -> None:
         analysis = analyze_requirements(HEAT_SINK_REQUIREMENTS, model=INTEGRATION_MODEL)
         for driver in analysis.drivers:
-            assert driver.weight > 0, f"Driver '{driver.name}' has non-positive weight {driver.weight}"
+            assert driver.weight > 0, (
+                f"Driver '{driver.name}' has non-positive weight {driver.weight}"
+            )
 
     def test_drivers_have_units_and_targets(self) -> None:
         analysis = analyze_requirements(PIPE_FITTING_REQUIREMENTS, model=INTEGRATION_MODEL)
@@ -118,9 +119,7 @@ class TestConceptGeneration:
         names = [c.name for c in study.concepts]
         assert len(set(names)) == len(names), f"Duplicate concept names: {names}"
 
-    def test_scores_are_in_valid_range(
-        self, bracket_analysis_live: RequirementsAnalysis
-    ) -> None:
+    def test_scores_are_in_valid_range(self, bracket_analysis_live: RequirementsAnalysis) -> None:
         study = generate_concepts(
             BRACKET_REQUIREMENTS,
             bracket_analysis_live,
@@ -130,13 +129,10 @@ class TestConceptGeneration:
         for concept in study.concepts:
             for driver_name, score in concept.scores.items():
                 assert 0 <= score <= 10, (
-                    f"Concept '{concept.name}' has out-of-range score "
-                    f"{score} for '{driver_name}'"
+                    f"Concept '{concept.name}' has out-of-range score {score} for '{driver_name}'"
                 )
 
-    def test_scores_cover_all_drivers(
-        self, bracket_analysis_live: RequirementsAnalysis
-    ) -> None:
+    def test_scores_cover_all_drivers(self, bracket_analysis_live: RequirementsAnalysis) -> None:
         study = generate_concepts(
             BRACKET_REQUIREMENTS,
             bracket_analysis_live,
@@ -146,9 +142,7 @@ class TestConceptGeneration:
         driver_names = {d.name for d in bracket_analysis_live.drivers}
         for concept in study.concepts:
             missing = driver_names - set(concept.scores.keys())
-            assert not missing, (
-                f"Concept '{concept.name}' missing scores for: {missing}"
-            )
+            assert not missing, f"Concept '{concept.name}' missing scores for: {missing}"
 
     def test_no_concept_scores_perfect_on_everything(
         self, bracket_analysis_live: RequirementsAnalysis
@@ -166,9 +160,7 @@ class TestConceptGeneration:
                 f"Concept '{concept.name}' scored 10 on everything — unrealistic"
             )
 
-    def test_recommendation_is_nonempty(
-        self, bracket_analysis_live: RequirementsAnalysis
-    ) -> None:
+    def test_recommendation_is_nonempty(self, bracket_analysis_live: RequirementsAnalysis) -> None:
         study = generate_concepts(
             BRACKET_REQUIREMENTS,
             bracket_analysis_live,

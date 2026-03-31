@@ -2,23 +2,23 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from io import StringIO
-from typing import List
 
 from rich.console import Console
 
 from archetype.display import print_analysis, print_tradeoff_matrix
-from archetype.models import DesignConcept, RequirementsAnalysis, TradeStudy
+from archetype.models import RequirementsAnalysis, TradeStudy
 
 
 def _capture(
-    fn: object,
+    fn: Callable[..., None],
     *args: object,
 ) -> str:
     """Capture Rich console output as plain text."""
     buf = StringIO()
     console = Console(file=buf, force_terminal=True, width=120)
-    fn(*args, console)  # type: ignore[operator]
+    fn(*args, console)
     return buf.getvalue()
 
 

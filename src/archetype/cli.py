@@ -11,7 +11,7 @@ from rich.console import Console
 
 from archetype import __version__
 from archetype.display import print_analysis, print_tradeoff_matrix
-from archetype.engine import analyze_requirements, generate_concepts
+from archetype.engine import MissingAPIKeyError, analyze_requirements, generate_concepts
 
 app = typer.Typer(
     name="archetype",
@@ -104,8 +104,12 @@ def analyze(
         console.print("[red]Error:[/red] Empty requirements.")
         raise typer.Exit(code=1)
 
-    with console.status("[bold blue]Extracting design drivers..."):
-        analysis = analyze_requirements(requirements, api_key=api_key, model=model)
+    try:
+        with console.status("[bold blue]Extracting design drivers..."):
+            analysis = analyze_requirements(requirements, api_key=api_key, model=model)
+    except MissingAPIKeyError as exc:
+        console.print(f"[red]Error:[/red] {exc}")
+        raise typer.Exit(code=1) from exc
 
     print_analysis(analysis, console)
 

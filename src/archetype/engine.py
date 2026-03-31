@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-import sys
+__all__ = ["analyze_requirements", "generate_concepts", "MissingAPIKeyError"]
+
+import os
 
 import anthropic
 
@@ -31,16 +33,16 @@ geometries, manufacturing methods, or architectural approaches. Be realistic abo
 no concept should score 10 on everything."""
 
 
+class MissingAPIKeyError(Exception):
+    """Raised when no Anthropic API key is available."""
+
+
 def _get_client(api_key: str | None = None) -> anthropic.Anthropic:
     """Create an Anthropic client, falling back to env var."""
-    try:
-        return anthropic.Anthropic(api_key=api_key) if api_key else anthropic.Anthropic()
-    except TypeError:
-        print(
-            "Error: No API key found. Set ANTHROPIC_API_KEY or pass --api-key.",
-            file=sys.stderr,
-        )
-        sys.exit(1)
+    resolved_key = api_key or os.environ.get("ANTHROPIC_API_KEY")
+    if not resolved_key:
+        raise MissingAPIKeyError("No API key found. Set ANTHROPIC_API_KEY or pass --api-key.")
+    return anthropic.Anthropic(api_key=resolved_key)
 
 
 def analyze_requirements(
@@ -69,6 +71,8 @@ def analyze_requirements(
         ],
     )
 
+    if not response.content:
+        raise ValueError("Empty response from model")
     block = response.content[0]
     if not hasattr(block, "text"):
         raise ValueError("Expected text response from model")
@@ -113,6 +117,8 @@ def generate_concepts(
         ],
     )
 
+    if not response.content:
+        raise ValueError("Empty response from model")
     block = response.content[0]
     if not hasattr(block, "text"):
         raise ValueError("Expected text response from model")
