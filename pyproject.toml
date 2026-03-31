@@ -40,6 +40,11 @@ line-length = 100
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W", "UP"]
 
+[tool.ruff.lint.per-file-ignores]
+# Typer evaluates annotations at runtime via typing.get_type_hints(),
+# which fails with X | None on Python 3.9
+"src/archetype/cli.py" = ["UP045"]
+
 [tool.mypy]
 python_version = "3.9"
 strict = true
